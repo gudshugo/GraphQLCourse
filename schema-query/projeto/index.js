@@ -4,13 +4,15 @@ const typeDefs = gql`
     # Pontos de entrada da API
     type Query {
         ola: String
+        horaCerta: String
     }
 `
 
 const resolvers = {
     Query: {
-        ola () {
-            return 'Bom dia'
+        horaCerta (){
+            let dataAtual = new Date()
+            return dataAtual.toString()
         }
     }
 }
@@ -20,6 +22,6 @@ const server = new ApolloServer({
     resolvers
 })
 
-server.listen().then(({ url }) => {
+server.listen(4000).then(({ url }) => {
     console.log(`Executando em ${url}`)
 })
