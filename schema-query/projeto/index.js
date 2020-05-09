@@ -23,8 +23,9 @@ const typeDefs = gql`
     type Query {
         ola: String!
         horaCerta: Date!
-        usuarioLogado: Usuario,
+        usuarioLogado: Usuario
         produtoEmDestaque: Produto
+        numerosMegaSena: [Int!]!
     }
 `
 
@@ -72,6 +73,13 @@ const resolvers = {
                 preco: 4890.89,
                 desconto: 50
             }
+        },
+        numerosMegaSena(){
+            const crescente = (a,b) => a - b
+            return Array(6)
+                    .fill(0)
+                        .map(() => parseInt(Math.random() * 60 + 1))
+                            .sort(crescente)
         }
     }
 }
@@ -81,6 +89,6 @@ const server = new ApolloServer({
     resolvers
 })
 
-server.listen(4000).then(({ url }) => {
+server.listen().then(({ url }) => {
     console.log(`Executando em ${url}`)
 })
